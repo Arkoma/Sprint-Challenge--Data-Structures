@@ -10,7 +10,7 @@ class LimitedArray {
   checkLimit(index) {
     if (typeof index !== 'number') throw new Error('The supplied index needs to be a number');
     if (this.limit <= index) {
-      throw new Error('The supplied index lies out of the array\'s bounds');
+      throw new Error('The supplied index lies out of the linked list\'s bounds');
     }
   }
 
@@ -49,7 +49,56 @@ const getIndexBelowMax = (str, max) => {
   return hash % max;
 };
 
+class LinkedList {
+  constructor() {
+    this.head = null;
+    this.tail = null;
+  }
+  addToTail(value) {
+    const newNode = {
+      next: null,
+      value,
+    };
+    if (this.head === null) {
+      this.head = newNode;
+      this.tail = newNode;
+      return;
+    }
+    this.tail.next = newNode;
+    this.tail = newNode;
+  }
+  removeHead() {
+   // need to check if there is a head node
+    if (this.head === null) return;
+   // check if head has a next
+    if (this.head.next === null) {
+      const value = this.head.value;
+      this.head = null;
+      this.tail = null;
+      return value;
+    }
+    const value = this.head.value;
+    this.head = this.head.next;
+    return value;
+  }
+  contains(value) {
+    // check if the linked list is empty
+    if (this.head === null) return false;
+    // otherwise, define our recursive function
+    const searchLinkedList = (node) => {
+      // check if the current node's value matches what we're looking for
+      if (node.value === value) return true;
+      // check if we've reache the end of teh linked list
+      if (node.next === null) return false;
+      // make our recursive call
+      return searchLinkedList(node.next);
+    };
+    return searchLinkedList(this.head);
+  }
+}
+
 module.exports = {
   LimitedArray,
   getIndexBelowMax,
+  LinkedList,
 };
