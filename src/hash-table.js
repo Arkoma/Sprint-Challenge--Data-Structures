@@ -51,10 +51,9 @@ class HashTable {
     bucket = new LinkedList();
     // bucket = bucket.filter(item => item[0] !== key);
     // bucket.push([key, value]);
-    if (bucket.contains(value) === false) {
-      bucket.addToTail([key, value]);
-      this.storage.set(index, bucket);
-    }
+    // if (bucket.contains(value) === false) {}
+    bucket.addToTail([key, value]);
+    this.storage.set(index, bucket);
   }
   // Removes the key, value pair from the hash table
   // Fetch the bucket associated with the given key using the getIndexBelowMax function
@@ -72,12 +71,17 @@ class HashTable {
   // Find the key, value pair inside the bucket and return the value
   retrieve(key) {
     const index = getIndexBelowMax(key.toString(), this.limit);
-    const bucket = this.storage.get(index);
+    const bucket = new LinkedList();
+    // so now we have our bucket defined.  Now we have to retrieve the value
+    // that matches the index in the node within the linked list.
+    
+    // bucket.removeHead();
     // let retrieved;
     // if (bucket) {
+    //   retrieved = bucket.head;
     //   retrieved = bucket.filter(item => item[0] === key)[0];
     // }
-
+    // return bucket.removeHead();
     // return retrieved ? retrieved[1] : undefined;
   }
 }
